@@ -1,10 +1,11 @@
 <template>
+<div>
  <table class="mail-table">
     <tbody>
       <tr v-for="email in unarchivedEmails"
           :key="email.id"
           :class="['clickable', email.read ? 'read' : '']"
-          @click="email.read = true">
+          @click="openEmail(email)">
         <td>
           <input type="checkbox" />
         </td>
@@ -17,6 +18,10 @@
       </tr>
     </tbody>
   </table>
+<div v-if="openedEmail">
+{{openedEmail.subject}}
+</div>
+</div>
 </template>
 
 <script>
@@ -26,6 +31,7 @@ export default {
   data(){
     return {
       format,
+      openedEmail: null,
       "emails": [
         {
           "id": 1,
@@ -75,7 +81,13 @@ export default {
     unarchivedEmails() {
       return this.sortedEmails.filter(e => !e.archived)
     }
-  }
+  },
+  methods: {
+      openEmail(email) {
+        email.read = true
+this.openedEmail = email
+      }
+}
 };
 </script>
 
