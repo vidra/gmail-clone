@@ -18,7 +18,9 @@
       </tr>
     </tbody>
   </table>
-<MailView v-if="openedEmail" :email="openedEmail" />
+<ModalView v-if="openedEmail" @closeModal="openedEmail = null">
+<MailView :email="openedEmail" />
+</ModalView>
 </div>
 </template>
 
